@@ -1,7 +1,8 @@
 // bigint with oop
-// Author:
-// Date: 14 october 2022
-// Version: 2.0
+// Author: abdelrahman elsayed korany mohamed , farah walid ahmed , marwan mohamed abdelmonem
+// ID's:                  20210222            ,       20210290    ,         20210378
+// Date: 24 october 2022
+// Version: 4.0
 
 #include "Bigint.h"
 
@@ -30,7 +31,7 @@ BigInt:: BigInt (string &num )
     if (!isdigit(num[0]))
     {
         sign = num[0];
-        num.erase(num.begin() ,num.begin()+1);
+        num.erase(num.begin());
 
     }
 
@@ -43,19 +44,17 @@ BigInt:: BigInt (string &num )
 
 }
 BigInt::BigInt(int n) {
-    string num ;
-    cin >> num;
-    num = to_string(n);
+    string num = to_string(n) ;
     while (!is_valid(num))
     {
         cout << "invalid number,try again\n";
         cin >> num;
     }
 
-    if ((!isdigit(num[0])) && (num[0]== '-' ))
+    if ((!isdigit(num[0])))
     {
         sign = num[0];
-        num.erase(num.begin() ,num.begin()+1);
+        num.erase(num.begin());
 
     }
 
@@ -93,14 +92,26 @@ string& BigInt :: StrSize(BigInt& a)
 
 }
 
+bool remove_zeros_from_left(string &num)
+{
+    int i = 0;
+    while(num[i] == '0'){
+        num.erase(num.begin());
+    }
+    if (num.empty())
+        num = "0";
+    return true;
+
+}
 
 BigInt BigInt:: operator+ (BigInt& anotherDec)
 {
     BigInt c;
     BigInt d;
+    c.sign = '+';
+    StrSize(anotherDec);
     d.number = number;
     d.sign = sign;
-    StrSize(anotherDec);
 
     if (sign == '+' and anotherDec.sign == '+'){
         int carry = 0;
@@ -117,7 +128,7 @@ BigInt BigInt:: operator+ (BigInt& anotherDec)
         }
     }
 
-    else if ((sign =='-') && (anotherDec.sign == '-'))
+    else if (sign =='-' and anotherDec.sign == '-')
     {
         int carry = 0;
         for (int i = number.size() - 1; i >= 0; i--)
@@ -131,7 +142,7 @@ BigInt BigInt:: operator+ (BigInt& anotherDec)
         {
             c.number = to_string(carry) + c.number;
         }
-        c.number = '-' + c.number;
+        c.sign = '-';
 
     }
 
@@ -139,89 +150,115 @@ BigInt BigInt:: operator+ (BigInt& anotherDec)
     else if (sign == '+' and anotherDec.sign == '-'){
         anotherDec.sign = '+';
         c = d - anotherDec;
+        anotherDec.sign = '-';
 
     }
 
     else if (sign == '-' and anotherDec.sign == '+')
     {
         d.sign = '+';
+        sign = '+';
         c = anotherDec - d;
+        sign = '-';
+        d.sign = '-';
+
+
     }
 
+    remove_zeros_from_left(c.number);
     return c;
 }
 
+bool can_borrow(string &num,int i){
 
-BigInt BigInt:: operator- (BigInt& anotherDec)
-{
+    for (int j = i; j >=0 ; j--)
+    {
+        if (num[j] >= '1'){
+            num[j] -= '1';
+            num[j] += '0';
+            return true;
+        }
+        else{
+            num[j] = '9';
+        }
+
+
+    }
+}
+BigInt BigInt:: operator- (BigInt& anotherDec) {
     BigInt c;
     BigInt d;
+    c.sign = '+';
+    StrSize(anotherDec);
     d.number = number;
     d.sign = sign;
-    StrSize(anotherDec);
     if (sign == '+' and anotherDec.sign == '+')
     {
         if (number >= anotherDec.number)
-            for(int i = number.size()-1 ; i >= 0  ;i--)
-            {
-                int borrow = 0;
+            for (int i = number.size() - 1; i >= 0; i--) {
+
                 int temp = 0;
-                if (number[i] >= anotherDec.number[i]){
+                if (number[i] >= anotherDec.number[i]) {
                     temp = number[i] - anotherDec.number[i];
                     c.number = to_string(temp) + c.number;
                 }
 
-                else{
-                    if (number[i-1] >= '1')
+                else
+                {
+                    if (can_borrow(number, i - 1))
                     {
-                        borrow = 10;
-                        number[i-1] = char((number[i-1] -  '1') + '0');
-                        temp = (borrow + number[i]) - anotherDec.number[i];
+                        temp = number[i] + 10 - anotherDec.number[i];
                         c.number = to_string(temp) + c.number;
                     }
 
-                    else{
-
-                    }
 
                 }
             }
 
-        else{
+        else {
             c.number = number;
             number = anotherDec.number;
             anotherDec.number = c.number;
             c.number = "";
-            for(int i = number.size()-1 ; i >= 0  ;i--)
-            {
-                int borrow = 0;
+            for (int i = number.size() - 1; i >= 0; i--) {
+
                 int temp = 0;
-                if (number[i] >= anotherDec.number[i]){
+                if (number[i] >= anotherDec.number[i]) {
                     temp = number[i] - anotherDec.number[i];
                     c.number = to_string(temp) + c.number;
                 }
+                else
+                {
+                    if (can_borrow(number, i - 1))
+                    {
 
-                else{
-                    borrow = 10;
-                    number[i-1] = char((number[i-1] -  '1') + '0');
-                    temp = (borrow + number[i]) - anotherDec.number[i];
-                    c.number = to_string(temp) + c.number;
+                        temp = number[i] + 10 - anotherDec.number[i];
+                        c.number = to_string(temp) + c.number;
+                    }
+
+
                 }
             }
-            c.number = '-' + c.number;
+            c.sign = '-';
         }
 
     }
 
-    else if (sign == '+' and anotherDec.sign == '-'){
+
+    else if (sign == '+' and anotherDec.sign == '-')
+    {
+
         anotherDec.sign = '+';
         c = d + anotherDec;
+        anotherDec.sign = '-';
     }
 
+    else if (sign == '-' and anotherDec.sign == '+')
+    {
 
-    else if (sign == '-' and anotherDec.sign == '+'){
         anotherDec.sign = '-';
         c = d + anotherDec;
+        anotherDec.sign = '+';
 
 
     }
@@ -232,55 +269,56 @@ BigInt BigInt:: operator- (BigInt& anotherDec)
         anotherDec.number = d.number;
 
         if (number >= anotherDec.number)
-            for(int i = number.size()-1 ; i >= 0  ;i--)
-            {
-                int borrow = 0;
+            for (int i = number.size() - 1; i >= 0; i--) {
+
                 int temp = 0;
-                if (number[i] >= anotherDec.number[i]){
+                if (number[i] >= anotherDec.number[i]) {
                     temp = number[i] - anotherDec.number[i];
                     c.number = to_string(temp) + c.number;
-                }
+                } else {
+                    if (can_borrow(number, i - 1)) {
 
-                else{
-                    borrow = 10;
-                    number[i-1] = char((number[i-1] -  '1') + '0');
-                    temp = (borrow + number[i]) - anotherDec.number[i];
-                    c.number = to_string(temp) + c.number;
+                        temp = number[i] + 10 - anotherDec.number[i];
+                        c.number = to_string(temp) + c.number;
+                    }
+
+
                 }
             }
 
-        else{
+        else {
             c.number = number;
             number = anotherDec.number;
             anotherDec.number = c.number;
             c.number = "";
-            for(int i = number.size()-1 ; i >= 0  ;i--)
-            {
-                int borrow = 0;
+            for (int i = number.size() - 1; i >= 0; i--) {
+
                 int temp = 0;
-                if (number[i] >= anotherDec.number[i]){
+                if (number[i] >= anotherDec.number[i]) {
                     temp = number[i] - anotherDec.number[i];
                     c.number = to_string(temp) + c.number;
-                }
+                } else {
+                    if (can_borrow(number, i - 1)) {
+                        temp = number[i] + 10 - anotherDec.number[i];
+                        c.number = to_string(temp) + c.number;
+                    }
 
-                else{
-                    borrow = 10;
-                    number[i-1] = char((number[i-1] -  '1') + '0');
-                    temp = (borrow + number[i]) - anotherDec.number[i];
-                    c.number = to_string(temp) + c.number;
+
                 }
             }
-            c.number = '-' + c.number;
+            c.sign = '-';
         }
-
-
     }
 
+    remove_zeros_from_left(c.number);
     return c;
+
 }
 
-bool BigInt:: operator< (const BigInt& anotherDec)   // a < b
+
+bool BigInt:: operator< ( BigInt& anotherDec)   // a < b
 {
+    StrSize(anotherDec);
     bool check = false;
     //int n = number.size(), m = anotherDec.number.size();
 
@@ -311,8 +349,9 @@ bool BigInt:: operator< (const BigInt& anotherDec)   // a < b
     return check;
 
 }
-bool BigInt:: operator>(const BigInt& anotherDec)
+bool BigInt:: operator>( BigInt& anotherDec)
 {
+    StrSize(anotherDec);
     bool check = true;
     BigInt temp;
     temp.number = number;
@@ -336,7 +375,7 @@ bool BigInt:: operator== (const BigInt& anotherDec)
     return false;
 }
 
-BigInt &BigInt::operator=(const BigInt &anotherDec)
+BigInt & BigInt::operator=(const BigInt &anotherDec)
 {   sign = anotherDec.sign;
     number = anotherDec.number;
     return *this;
@@ -344,6 +383,10 @@ BigInt &BigInt::operator=(const BigInt &anotherDec)
 
 int BigInt:: size(){
     return number.size();
+}
+
+int BigInt:: Sign(){
+    return sign;
 }
 
 
