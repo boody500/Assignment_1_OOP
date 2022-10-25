@@ -19,12 +19,12 @@ private:
     string number;
     char sign;
 public:
-    //bool is_valid(string b);
 
+    bool is_valid(string &b);
     BigInt (string &num );
     BigInt (int n );
     BigInt();
-    bool is_valid(string &b);
+
 
     string  get_num() const;
     string& StrSize(BigInt& a);
