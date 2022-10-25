@@ -1,5 +1,5 @@
 // bigint with oop
-// Author: abdelrahman elsayed korany mohamed , farah walid ahmed , marwan mohamed abdelmonem
+// Author: abdelrahman elsayed korany mohamed , farah walid ahmed , marwan ahmed abdelmonem
 // ID's:                  20210222            ,       20210290    ,         20210378
 // Date: 25 october 2022
 // Version: 4.0

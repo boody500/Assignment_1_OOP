@@ -18,12 +18,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6e6e55af-c8fe-4364-a6f1-e792fef0bff3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bigint.h" beforeDir="false" afterPath="$PROJECT_DIR$/Bigint.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bigint_Functions.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Bigint_Functions.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Bigint.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Bigint.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Bigint.dir/Bigint_Functions.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Bigint.dir/Bigint_Functions.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Bigint.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Bigint.dir/main.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
@@ -85,7 +85,8 @@
       <workItem from="1666257911220" duration="15017000" />
       <workItem from="1666281375125" duration="3100000" />
       <workItem from="1666432991958" duration="1334000" />
-      <workItem from="1666603783466" duration="9449000" />
+      <workItem from="1666603783466" duration="10523000" />
+      <workItem from="1666676844288" duration="2296000" />
     </task>
     <servers />
   </component>
